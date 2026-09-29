@@ -1,0 +1,7 @@
+node_modules/
+.promptfoo/
+reports/*.html
+reports/*.json
+!.gitkeep
+.env
+

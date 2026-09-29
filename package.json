@@ -1,0 +1,16 @@
+{
+  "name": "parachute-agent-evals",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Agente de citas y FAQ con evals de Promptfoo para HDT 6.",
+  "scripts": {
+    "test": "node --test",
+    "eval": "promptfoo eval -c promptfooconfig.yaml --no-cache",
+    "eval:local": "promptfoo eval -c promptfooconfig.local.yaml --no-cache -o reports/promptfoo-local.json",
+    "report": "promptfoo view -y"
+  },
+  "devDependencies": {
+    "promptfoo": "^0.120.0"
+  }
+}
+
