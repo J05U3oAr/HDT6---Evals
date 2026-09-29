@@ -24,7 +24,7 @@ tests:
         provider: openai:gpt-5-mini
         metric: factuality
       - type: regex
-        value: '^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$'
+        value: '^Cita agendada correctamente.*Confirmación: PC-\d{4}\.$'
         metric: deterministic_format
       - type: javascript
         value: file://evals/assertions/tool-execution.cjs
@@ -41,7 +41,7 @@ tests:
         provider: openai:gpt-5-mini
         metric: factuality
       - type: regex
-        value: '^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$'
+        value: '^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \(hora de Guatemala\)\.$'
         metric: deterministic_format
       - type: javascript
         value: file://evals/assertions/tool-execution.cjs

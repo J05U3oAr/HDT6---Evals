@@ -1,5 +1,8 @@
 module.exports = (output, context) => {
-  const requiredFacts = context.vars.requiredFacts || [];
+  const rawFacts = context.vars.requiredFacts || [];
+  const requiredFacts = Array.isArray(rawFacts)
+    ? rawFacts
+    : String(rawFacts).split('|').map((fact) => fact.trim()).filter(Boolean);
   const missingFacts = requiredFacts.filter(
     (fact) => !output.toLocaleLowerCase('es-GT').includes(fact.toLocaleLowerCase('es-GT')),
   );

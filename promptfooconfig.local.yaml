@@ -14,7 +14,7 @@ tests:
   - description: Agenda una cita y conserva fecha, hora y motivo
     vars:
       query: Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.
-      requiredFacts: [Cita agendada correctamente, '2026-10-05', '10:00', asesoría]
+      requiredFacts: Cita agendada correctamente | 2026-10-05 | 10:00 | asesoría
       expectedTool: calendar.createAppointment
       expectedToolArgs:
         date: '2026-10-05'
@@ -24,7 +24,7 @@ tests:
         value: file://evals/assertions/factuality.cjs
         metric: factuality
       - type: regex
-        value: '^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$'
+        value: '^Cita agendada correctamente.*Confirmación: PC-\d{4}\.$'
         metric: deterministic_format
       - type: javascript
         value: file://evals/assertions/tool-execution.cjs
@@ -33,7 +33,7 @@ tests:
   - description: Responde el horario oficial desde la base FAQ
     vars:
       query: ¿Cuál es su horario de atención?
-      requiredFacts: [lunes a viernes, '08:00 a 17:00', Guatemala]
+      requiredFacts: lunes a viernes | 08:00 a 17:00 | Guatemala
       expectedTool: knowledge.searchFAQ
       expectedToolArgs: {}
     assert:
@@ -41,7 +41,7 @@ tests:
         value: file://evals/assertions/factuality.cjs
         metric: factuality
       - type: regex
-        value: '^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$'
+        value: '^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \(hora de Guatemala\)\.$'
         metric: deterministic_format
       - type: javascript
         value: file://evals/assertions/tool-execution.cjs
@@ -50,7 +50,7 @@ tests:
   - description: Informa la política de cancelación sin inventar datos
     vars:
       query: ¿Con cuánto tiempo puedo cancelar o reprogramar una cita?
-      requiredFacts: [cancelar o reprogramar, '24 horas']
+      requiredFacts: cancelar o reprogramar | 24 horas
       expectedTool: knowledge.searchFAQ
       expectedToolArgs: {}
     assert:

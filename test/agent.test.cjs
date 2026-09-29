@@ -17,3 +17,9 @@ test('responde una FAQ a través de la base de conocimiento', async () => {
   assert.match(result.answer, /lunes a viernes, de 08:00 a 17:00/);
   assert.equal(result.toolCalls[0].name, 'knowledge.searchFAQ');
 });
+
+test('prioriza la FAQ de cancelación sobre la intención de crear una cita', async () => {
+  const result = await runAgent('¿Con cuánto tiempo puedo cancelar o reprogramar una cita?');
+  assert.match(result.answer, /24 horas de anticipación/);
+  assert.equal(result.toolCalls[0].name, 'knowledge.searchFAQ');
+});

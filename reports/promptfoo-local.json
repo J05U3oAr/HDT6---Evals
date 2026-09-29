@@ -1,0 +1,711 @@
+{
+  "evalId": "eval-d48-2026-09-29T06:09:22",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-09-29T06:09:22.195Z",
+    "prompts": [
+      {
+        "id": "8868fc514e5f7bd1a350480c5a825cd0f5b47b6c0c8da0ca62be71158f638c23",
+        "raw": "{{query}}",
+        "label": "{{query}}",
+        "provider": "parachute-agent",
+        "metrics": {
+          "score": 3,
+          "testPassCount": 3,
+          "testFailCount": 0,
+          "testErrorCount": 0,
+          "assertPassCount": 12,
+          "assertFailCount": 0,
+          "totalLatencyMs": 252,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 3,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 0,
+              "prompt": 0,
+              "completion": 0,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {
+            "latency_ms": 3,
+            "deterministic_format": 2,
+            "factuality": 3,
+            "tool_execution": 3,
+            "deterministic_content": 1
+          },
+          "namedScoresCount": {
+            "latency_ms": 3,
+            "deterministic_format": 2,
+            "factuality": 3,
+            "tool_execution": 3,
+            "deterministic_content": 1
+          },
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {
+            "latency_ms": 1,
+            "deterministic_format": 1,
+            "factuality": 1,
+            "tool_execution": 1
+          },
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "latency",
+                "threshold": 500,
+                "metric": "latency_ms"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "La respuesta contiene todos los hechos canónicos esperados."
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$",
+                "metric": "deterministic_format"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "calendar.createAppointment fue llamada correctamente."
+            }
+          ]
+        },
+        "id": "276fef92-74e8-44d5-9c74-f3acf9eff611",
+        "latencyMs": 71,
+        "namedScores": {
+          "latency_ms": 1,
+          "deterministic_format": 1,
+          "factuality": 1,
+          "tool_execution": 1
+        },
+        "prompt": {
+          "raw": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+          "label": "{{query}}",
+          "config": {}
+        },
+        "promptId": "8868fc514e5f7bd1a350480c5a825cd0f5b47b6c0c8da0ca62be71158f638c23",
+        "promptIdx": 0,
+        "provider": {
+          "id": "parachute-agent",
+          "label": ""
+        },
+        "response": {
+          "output": "Cita agendada correctamente para el 2026-10-05 a las 10:00. Motivo: asesoría. Confirmación: PC-0001.",
+          "metadata": {
+            "toolCalls": [
+              {
+                "name": "calendar.createAppointment",
+                "input": {
+                  "date": "2026-10-05",
+                  "time": "10:00",
+                  "reason": "asesoría"
+                },
+                "output": {
+                  "ok": true,
+                  "appointment": {
+                    "id": "PC-0001",
+                    "date": "2026-10-05",
+                    "time": "10:00",
+                    "reason": "asesoría",
+                    "slot": "2026-10-05T10:00"
+                  }
+                },
+                "is_error": false
+              }
+            ]
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "Agenda una cita y conserva fecha, hora y motivo",
+          "vars": {
+            "query": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+            "requiredFacts": "Cita agendada correctamente | 2026-10-05 | 10:00 | asesoría",
+            "expectedTool": "calendar.createAppointment",
+            "expectedToolArgs": {
+              "date": "2026-10-05",
+              "time": "10:00"
+            }
+          },
+          "assert": [
+            {
+              "type": "latency",
+              "threshold": 500,
+              "metric": "latency_ms"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/factuality.cjs",
+              "metric": "factuality"
+            },
+            {
+              "type": "regex",
+              "value": "^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$",
+              "metric": "deterministic_format"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/tool-execution.cjs",
+              "metric": "tool_execution"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "query": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+          "requiredFacts": "Cita agendada correctamente | 2026-10-05 | 10:00 | asesoría",
+          "expectedTool": "calendar.createAppointment",
+          "expectedToolArgs": {
+            "date": "2026-10-05",
+            "time": "10:00"
+          }
+        },
+        "metadata": {
+          "toolCalls": [
+            {
+              "name": "calendar.createAppointment",
+              "input": {
+                "date": "2026-10-05",
+                "time": "10:00",
+                "reason": "asesoría"
+              },
+              "output": {
+                "ok": true,
+                "appointment": {
+                  "id": "PC-0001",
+                  "date": "2026-10-05",
+                  "time": "10:00",
+                  "reason": "asesoría",
+                  "slot": "2026-10-05T10:00"
+                }
+              },
+              "is_error": false
+            }
+          ],
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {
+            "latency_ms": 1,
+            "deterministic_format": 1,
+            "factuality": 1,
+            "tool_execution": 1
+          },
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "latency",
+                "threshold": 500,
+                "metric": "latency_ms"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "La respuesta contiene todos los hechos canónicos esperados."
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$",
+                "metric": "deterministic_format"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "knowledge.searchFAQ fue llamada correctamente."
+            }
+          ]
+        },
+        "id": "e06b6fed-0f51-4b49-a472-16eeafb0a494",
+        "latencyMs": 84,
+        "namedScores": {
+          "latency_ms": 1,
+          "deterministic_format": 1,
+          "factuality": 1,
+          "tool_execution": 1
+        },
+        "prompt": {
+          "raw": "¿Cuál es su horario de atención?",
+          "label": "{{query}}",
+          "config": {}
+        },
+        "promptId": "8868fc514e5f7bd1a350480c5a825cd0f5b47b6c0c8da0ca62be71158f638c23",
+        "promptIdx": 0,
+        "provider": {
+          "id": "parachute-agent",
+          "label": ""
+        },
+        "response": {
+          "output": "Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 (hora de Guatemala).",
+          "metadata": {
+            "toolCalls": [
+              {
+                "name": "knowledge.searchFAQ",
+                "input": {
+                  "question": "¿Cuál es su horario de atención?"
+                },
+                "output": {
+                  "topic": "horario",
+                  "keywords": [
+                    "horario",
+                    "atienden",
+                    "atención",
+                    "abren"
+                  ],
+                  "answer": "Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 (hora de Guatemala)."
+                },
+                "is_error": false
+              }
+            ]
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "Responde el horario oficial desde la base FAQ",
+          "vars": {
+            "query": "¿Cuál es su horario de atención?",
+            "requiredFacts": "lunes a viernes | 08:00 a 17:00 | Guatemala",
+            "expectedTool": "knowledge.searchFAQ",
+            "expectedToolArgs": {}
+          },
+          "assert": [
+            {
+              "type": "latency",
+              "threshold": 500,
+              "metric": "latency_ms"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/factuality.cjs",
+              "metric": "factuality"
+            },
+            {
+              "type": "regex",
+              "value": "^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$",
+              "metric": "deterministic_format"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/tool-execution.cjs",
+              "metric": "tool_execution"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "query": "¿Cuál es su horario de atención?",
+          "requiredFacts": "lunes a viernes | 08:00 a 17:00 | Guatemala",
+          "expectedTool": "knowledge.searchFAQ",
+          "expectedToolArgs": {}
+        },
+        "metadata": {
+          "toolCalls": [
+            {
+              "name": "knowledge.searchFAQ",
+              "input": {
+                "question": "¿Cuál es su horario de atención?"
+              },
+              "output": {
+                "topic": "horario",
+                "keywords": [
+                  "horario",
+                  "atienden",
+                  "atención",
+                  "abren"
+                ],
+                "answer": "Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 (hora de Guatemala)."
+              },
+              "is_error": false
+            }
+          ],
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {
+            "latency_ms": 1,
+            "deterministic_content": 1,
+            "factuality": 1,
+            "tool_execution": 1
+          },
+          "tokensUsed": {
+            "total": 0,
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "numRequests": 0
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "latency",
+                "threshold": 500,
+                "metric": "latency_ms"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "La respuesta contiene todos los hechos canónicos esperados."
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "contains",
+                "value": "al menos 24 horas de anticipación",
+                "metric": "deterministic_content"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "knowledge.searchFAQ fue llamada correctamente."
+            }
+          ]
+        },
+        "id": "7b92b4c8-5922-4c8e-a20d-e2f0fe0f9a73",
+        "latencyMs": 97,
+        "namedScores": {
+          "latency_ms": 1,
+          "deterministic_content": 1,
+          "factuality": 1,
+          "tool_execution": 1
+        },
+        "prompt": {
+          "raw": "¿Con cuánto tiempo puedo cancelar o reprogramar una cita?",
+          "label": "{{query}}",
+          "config": {}
+        },
+        "promptId": "8868fc514e5f7bd1a350480c5a825cd0f5b47b6c0c8da0ca62be71158f638c23",
+        "promptIdx": 0,
+        "provider": {
+          "id": "parachute-agent",
+          "label": ""
+        },
+        "response": {
+          "output": "Puedes cancelar o reprogramar una cita con al menos 24 horas de anticipación.",
+          "metadata": {
+            "toolCalls": [
+              {
+                "name": "knowledge.searchFAQ",
+                "input": {
+                  "question": "¿Con cuánto tiempo puedo cancelar o reprogramar una cita?"
+                },
+                "output": {
+                  "topic": "cancelacion",
+                  "keywords": [
+                    "cancelar",
+                    "cancelación",
+                    "reprogramar",
+                    "reprogramación"
+                  ],
+                  "answer": "Puedes cancelar o reprogramar una cita con al menos 24 horas de anticipación."
+                },
+                "is_error": false
+              }
+            ]
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "Informa la política de cancelación sin inventar datos",
+          "vars": {
+            "query": "¿Con cuánto tiempo puedo cancelar o reprogramar una cita?",
+            "requiredFacts": "cancelar o reprogramar | 24 horas",
+            "expectedTool": "knowledge.searchFAQ",
+            "expectedToolArgs": {}
+          },
+          "assert": [
+            {
+              "type": "latency",
+              "threshold": 500,
+              "metric": "latency_ms"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/factuality.cjs",
+              "metric": "factuality"
+            },
+            {
+              "type": "contains",
+              "value": "al menos 24 horas de anticipación",
+              "metric": "deterministic_content"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/tool-execution.cjs",
+              "metric": "tool_execution"
+            }
+          ],
+          "options": {},
+          "metadata": {}
+        },
+        "testIdx": 2,
+        "vars": {
+          "query": "¿Con cuánto tiempo puedo cancelar o reprogramar una cita?",
+          "requiredFacts": "cancelar o reprogramar | 24 horas",
+          "expectedTool": "knowledge.searchFAQ",
+          "expectedToolArgs": {}
+        },
+        "metadata": {
+          "toolCalls": [
+            {
+              "name": "knowledge.searchFAQ",
+              "input": {
+                "question": "¿Con cuánto tiempo puedo cancelar o reprogramar una cita?"
+              },
+              "output": {
+                "topic": "cancelacion",
+                "keywords": [
+                  "cancelar",
+                  "cancelación",
+                  "reprogramar",
+                  "reprogramación"
+                ],
+                "answer": "Puedes cancelar o reprogramar una cita con al menos 24 horas de anticipación."
+              },
+              "is_error": false
+            }
+          ],
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      }
+    ],
+    "stats": {
+      "successes": 3,
+      "failures": 0,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0,
+        "total": 0,
+        "numRequests": 3,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 0,
+          "prompt": 0,
+          "completion": 0,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 512,
+      "evaluationDurationMs": 512
+    }
+  },
+  "config": {
+    "tags": {},
+    "description": "Evals locales del agente Parachute",
+    "prompts": [
+      "{{query}}"
+    ],
+    "providers": [
+      "file://evals/provider.cjs"
+    ],
+    "tests": [
+      {
+        "description": "Agenda una cita y conserva fecha, hora y motivo",
+        "vars": {
+          "query": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+          "requiredFacts": "Cita agendada correctamente | 2026-10-05 | 10:00 | asesoría",
+          "expectedTool": "calendar.createAppointment",
+          "expectedToolArgs": {
+            "date": "2026-10-05",
+            "time": "10:00"
+          }
+        },
+        "assert": [
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/factuality.cjs",
+            "metric": "factuality"
+          },
+          {
+            "type": "regex",
+            "value": "^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$",
+            "metric": "deterministic_format"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/tool-execution.cjs",
+            "metric": "tool_execution"
+          }
+        ]
+      },
+      {
+        "description": "Responde el horario oficial desde la base FAQ",
+        "vars": {
+          "query": "¿Cuál es su horario de atención?",
+          "requiredFacts": "lunes a viernes | 08:00 a 17:00 | Guatemala",
+          "expectedTool": "knowledge.searchFAQ",
+          "expectedToolArgs": {}
+        },
+        "assert": [
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/factuality.cjs",
+            "metric": "factuality"
+          },
+          {
+            "type": "regex",
+            "value": "^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$",
+            "metric": "deterministic_format"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/tool-execution.cjs",
+            "metric": "tool_execution"
+          }
+        ]
+      },
+      {
+        "description": "Informa la política de cancelación sin inventar datos",
+        "vars": {
+          "query": "¿Con cuánto tiempo puedo cancelar o reprogramar una cita?",
+          "requiredFacts": "cancelar o reprogramar | 24 horas",
+          "expectedTool": "knowledge.searchFAQ",
+          "expectedToolArgs": {}
+        },
+        "assert": [
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/factuality.cjs",
+            "metric": "factuality"
+          },
+          {
+            "type": "contains",
+            "value": "al menos 24 horas de anticipación",
+            "metric": "deterministic_content"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/tool-execution.cjs",
+            "metric": "tool_execution"
+          }
+        ]
+      }
+    ],
+    "scenarios": [],
+    "env": {},
+    "defaultTest": {
+      "assert": [
+        {
+          "type": "latency",
+          "threshold": 500,
+          "metric": "latency_ms"
+        }
+      ],
+      "vars": {},
+      "options": {},
+      "metadata": {}
+    },
+    "outputPath": [
+      "reports/promptfoo-local.json"
+    ],
+    "extensions": [],
+    "metadata": {},
+    "evaluateOptions": {}
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.120.27",
+    "nodeVersion": "v24.15.0",
+    "platform": "win32",
+    "arch": "x64",
+    "exportedAt": "2026-09-29T06:09:23.743Z",
+    "evaluationCreatedAt": "2026-09-29T06:09:22.195Z"
+  }
+}

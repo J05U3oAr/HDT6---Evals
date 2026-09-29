@@ -5,8 +5,8 @@
   "description": "Agente de citas y FAQ con evals de Promptfoo para HDT 6.",
   "scripts": {
     "test": "node --test",
-    "eval": "promptfoo eval -c promptfooconfig.yaml --no-cache",
-    "eval:local": "promptfoo eval -c promptfooconfig.local.yaml --no-cache -o reports/promptfoo-local.json",
+    "eval": "set PROMPTFOO_CONFIG_DIR=.promptfoo&& set PROMPTFOO_DISABLE_TELEMETRY=true&& set PROMPTFOO_DISABLE_UPDATE=true&& promptfoo eval -c promptfooconfig.yaml --no-cache",
+    "eval:local": "set PROMPTFOO_CONFIG_DIR=.promptfoo&& set PROMPTFOO_DISABLE_TELEMETRY=true&& set PROMPTFOO_DISABLE_UPDATE=true&& promptfoo eval -c promptfooconfig.local.yaml --no-cache -o reports/promptfoo-local.json",
     "report": "promptfoo view -y"
   },
   "devDependencies": {

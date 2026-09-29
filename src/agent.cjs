@@ -15,6 +15,14 @@ function extractAppointmentDetails(message) {
 async function runAgent(message) {
   const normalized = message.toLocaleLowerCase('es-GT');
   const toolCalls = [];
+  const faq = searchFaq(message);
+
+  // Las FAQs tienen prioridad para que "cancelar una cita" no se interprete
+  // como una solicitud de crear una nueva cita.
+  if (faq) {
+    toolCalls.push(buildToolCall('knowledge.searchFAQ', { question: message }, faq, false));
+    return { answer: faq.answer, toolCalls };
+  }
 
   if (/(agendar|agenda|reservar|cita)/.test(normalized)) {
     const details = extractAppointmentDetails(message);
@@ -38,12 +46,7 @@ async function runAgent(message) {
     };
   }
 
-  const faq = searchFaq(message);
   toolCalls.push(buildToolCall('knowledge.searchFAQ', { question: message }, faq, !faq));
-  if (faq) {
-    return { answer: faq.answer, toolCalls };
-  }
-
   return {
     answer: 'No tengo información confirmada sobre esa consulta. Puedes escribir a soporte@parachute.example.',
     toolCalls,

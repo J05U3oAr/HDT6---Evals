@@ -31,6 +31,7 @@ npm.cmd run eval
 ```
 
 Se usa `--no-cache` en ambos comandos porque Promptfoo requiere desactivar la caché para que el assertion `latency` mida la ejecución real. El resultado exportado queda en `reports/promptfoo-local.json`.
+Los scripts configuran `PROMPTFOO_CONFIG_DIR` dentro del repositorio y desactivan telemetría/actualizaciones para que la ejecución sea reproducible y no necesite escribir fuera del proyecto.
 
 ## Cobertura de la evaluación
 
