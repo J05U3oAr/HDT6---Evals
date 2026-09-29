@@ -18,19 +18,19 @@ npm.cmd test
 
 La entrega incluye dos configuraciones de Promptfoo:
 
-- `promptfooconfig.yaml`: contiene el assertion nativo `factuality` de Promptfoo, además de `regex`, `latency` y validación JavaScript de ejecución de herramientas. Necesita `OPENAI_API_KEY` porque el grader es `openai:gpt-5-mini`.
+- `promptfooconfig.yaml`: contiene el assertion nativo `factuality` de Promptfoo, además de `regex`, `latency` y validación JavaScript de ejecución de herramientas. Usa NVIDIA Nemotron mediante una API compatible con OpenAI y requiere `NVIDIA_API_KEY`.
 - `promptfooconfig.local.yaml`: suite totalmente reproducible sin credenciales. Contrasta la factualidad contra hechos canónicos mediante un assertion JavaScript y conserva los evals deterministas, de latencia y tool execution. Es la que genera el reporte incluido.
 
 ```powershell
 # Reporte reproducible, sin API key
 npm.cmd run eval:local
 
-# Suite con el grader factuality nativo
-$env:OPENAI_API_KEY = '...'
+# Suite con el grader factuality nativo (NVIDIA)
+$env:NVIDIA_API_KEY = '...'
 npm.cmd run eval
 ```
 
-Se usa `--no-cache` en ambos comandos porque Promptfoo requiere desactivar la caché para que el assertion `latency` mida la ejecución real. El resultado exportado queda en `reports/promptfoo-local.json`.
+Se usa --no-cache en ambos comandos porque Promptfoo requiere desactivar la caché para que el assertion latency mida la ejecución real. Los resultados se exportan a reports/promptfoo-local.json y reports/promptfoo-factuality.json.
 Los scripts configuran `PROMPTFOO_CONFIG_DIR` dentro del repositorio y desactivan telemetría/actualizaciones para que la ejecución sea reproducible y no necesite escribir fuera del proyecto.
 
 ## Cobertura de la evaluación
