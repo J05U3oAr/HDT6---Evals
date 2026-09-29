@@ -1,0 +1,618 @@
+{
+  "evalId": "eval-nHh-2026-09-29T06:32:46",
+  "results": {
+    "version": 3,
+    "timestamp": "2026-09-29T06:32:46.530Z",
+    "prompts": [
+      {
+        "id": "8868fc514e5f7bd1a350480c5a825cd0f5b47b6c0c8da0ca62be71158f638c23",
+        "raw": "{{query}}",
+        "label": "{{query}}",
+        "provider": "parachute-agent",
+        "metrics": {
+          "score": 2,
+          "testPassCount": 2,
+          "testFailCount": 0,
+          "testErrorCount": 0,
+          "assertPassCount": 8,
+          "assertFailCount": 0,
+          "totalLatencyMs": 35,
+          "tokenUsage": {
+            "prompt": 0,
+            "completion": 0,
+            "cached": 0,
+            "total": 0,
+            "numRequests": 2,
+            "completionDetails": {
+              "reasoning": 0,
+              "acceptedPrediction": 0,
+              "rejectedPrediction": 0
+            },
+            "assertions": {
+              "total": 1038,
+              "prompt": 756,
+              "completion": 282,
+              "cached": 0,
+              "numRequests": 0,
+              "completionDetails": {
+                "reasoning": 0,
+                "acceptedPrediction": 0,
+                "rejectedPrediction": 0
+              }
+            }
+          },
+          "namedScores": {
+            "latency_ms": 2,
+            "deterministic_format": 2,
+            "tool_execution": 2,
+            "factuality": 2
+          },
+          "namedScoresCount": {
+            "latency_ms": 2,
+            "deterministic_format": 2,
+            "tool_execution": 2,
+            "factuality": 2
+          },
+          "cost": 0
+        }
+      }
+    ],
+    "results": [
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {
+            "latency_ms": 1,
+            "deterministic_format": 1,
+            "tool_execution": 1,
+            "factuality": 1
+          },
+          "tokensUsed": {
+            "total": 555,
+            "prompt": 396,
+            "completion": 159,
+            "cached": 0,
+            "numRequests": 1
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "latency",
+                "threshold": 500,
+                "metric": "latency_ms"
+              }
+            },
+            {
+              "assertion": {
+                "type": "factuality",
+                "value": "La cita se agendó para el 2026-10-05 a las 10:00 con motivo asesoría.",
+                "metric": "factuality"
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The submitted answer contains all the factual information present in the expert answer and is fully consistent with it. The expert answer states the date (2026-10-05), time (10:00), and purpose (asesoría). The submitted answer includes these same elements (date 2026-10-05, time 10:00, motivo: asesoría) and adds a confirmation code (PC-0001) which is an additional detail not present in the expert answer but does not contradict any of the expert's statements. All core facts from the expert answer are present in the submitted answer, making it a subset that is fully consistent.",
+              "tokensUsed": {
+                "total": 555,
+                "prompt": 396,
+                "completion": 159,
+                "numRequests": 1
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$",
+                "metric": "deterministic_format"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "calendar.createAppointment fue llamada correctamente."
+            }
+          ]
+        },
+        "id": "a2a72855-a8fb-4132-84ac-1eba4a32b1a2",
+        "latencyMs": 15,
+        "namedScores": {
+          "latency_ms": 1,
+          "deterministic_format": 1,
+          "tool_execution": 1,
+          "factuality": 1
+        },
+        "prompt": {
+          "raw": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+          "label": "{{query}}",
+          "config": {
+            "provider": {
+              "id": "openai:chat:nvidia/nemotron-3.5-lightning-30b-a3b",
+              "config": {
+                "apiBaseUrl": "https://integrate.api.nvidia.com/v1",
+                "apiKeyEnvar": "NVIDIA_API_KEY",
+                "temperature": 0,
+                "max_tokens": 300,
+                "showThinking": false,
+                "passthrough": {
+                  "chat_template_kwargs": {
+                    "enable_thinking": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "promptId": "8868fc514e5f7bd1a350480c5a825cd0f5b47b6c0c8da0ca62be71158f638c23",
+        "promptIdx": 0,
+        "provider": {
+          "id": "parachute-agent",
+          "label": ""
+        },
+        "response": {
+          "output": "Cita agendada correctamente para el 2026-10-05 a las 10:00. Motivo: asesoría. Confirmación: PC-0001.",
+          "metadata": {
+            "toolCalls": [
+              {
+                "name": "calendar.createAppointment",
+                "input": {
+                  "date": "2026-10-05",
+                  "time": "10:00",
+                  "reason": "asesoría"
+                },
+                "output": {
+                  "ok": true,
+                  "appointment": {
+                    "id": "PC-0001",
+                    "date": "2026-10-05",
+                    "time": "10:00",
+                    "reason": "asesoría",
+                    "slot": "2026-10-05T10:00"
+                  }
+                },
+                "is_error": false
+              }
+            ]
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "Agenda una cita con información factual y la herramienta correcta",
+          "vars": {
+            "query": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+            "expectedTool": "calendar.createAppointment",
+            "expectedToolArgs": {
+              "date": "2026-10-05",
+              "time": "10:00"
+            }
+          },
+          "assert": [
+            {
+              "type": "latency",
+              "threshold": 500,
+              "metric": "latency_ms"
+            },
+            {
+              "type": "factuality",
+              "value": "La cita se agendó para el 2026-10-05 a las 10:00 con motivo asesoría.",
+              "metric": "factuality"
+            },
+            {
+              "type": "regex",
+              "value": "^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$",
+              "metric": "deterministic_format"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/tool-execution.cjs",
+              "metric": "tool_execution"
+            }
+          ],
+          "options": {
+            "provider": {
+              "id": "openai:chat:nvidia/nemotron-3.5-lightning-30b-a3b",
+              "config": {
+                "apiBaseUrl": "https://integrate.api.nvidia.com/v1",
+                "apiKeyEnvar": "NVIDIA_API_KEY",
+                "temperature": 0,
+                "max_tokens": 300,
+                "showThinking": false,
+                "passthrough": {
+                  "chat_template_kwargs": {
+                    "enable_thinking": false
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {}
+        },
+        "testIdx": 0,
+        "vars": {
+          "query": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+          "expectedTool": "calendar.createAppointment",
+          "expectedToolArgs": {
+            "date": "2026-10-05",
+            "time": "10:00"
+          }
+        },
+        "metadata": {
+          "toolCalls": [
+            {
+              "name": "calendar.createAppointment",
+              "input": {
+                "date": "2026-10-05",
+                "time": "10:00",
+                "reason": "asesoría"
+              },
+              "output": {
+                "ok": true,
+                "appointment": {
+                  "id": "PC-0001",
+                  "date": "2026-10-05",
+                  "time": "10:00",
+                  "reason": "asesoría",
+                  "slot": "2026-10-05T10:00"
+                }
+              },
+              "is_error": false
+            }
+          ],
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      },
+      {
+        "cost": 0,
+        "gradingResult": {
+          "pass": true,
+          "score": 1,
+          "reason": "All assertions passed",
+          "namedScores": {
+            "latency_ms": 1,
+            "deterministic_format": 1,
+            "tool_execution": 1,
+            "factuality": 1
+          },
+          "tokensUsed": {
+            "total": 483,
+            "prompt": 360,
+            "completion": 123,
+            "cached": 0,
+            "numRequests": 1
+          },
+          "componentResults": [
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "latency",
+                "threshold": 500,
+                "metric": "latency_ms"
+              }
+            },
+            {
+              "assertion": {
+                "type": "factuality",
+                "value": "El horario de atención es de lunes a viernes, 08:00 a 17:00, hora de Guatemala.",
+                "metric": "factuality"
+              },
+              "pass": true,
+              "score": 1,
+              "reason": "The submitted answer is a subset of the expert answer and is fully consistent with it. Both answers state the same core information: the hours of attention are from Monday to Friday, 08:00 to 17:00, in Guatemala time. The submitted answer adds the phrase 'Nuestro' (Our) and parentheses around 'hora de Guatemala', but these are stylistic differences that do not change the factual content. The essential factual elements (days, hours, timezone) are identical and consistent between both answers.",
+              "tokensUsed": {
+                "total": 483,
+                "prompt": 360,
+                "completion": 123,
+                "numRequests": 1
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "Assertion passed",
+              "assertion": {
+                "type": "regex",
+                "value": "^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$",
+                "metric": "deterministic_format"
+              }
+            },
+            {
+              "pass": true,
+              "score": 1,
+              "reason": "knowledge.searchFAQ fue llamada correctamente."
+            }
+          ]
+        },
+        "id": "807575e8-3ebd-4cc1-ad9a-6f15d17a4509",
+        "latencyMs": 20,
+        "namedScores": {
+          "latency_ms": 1,
+          "deterministic_format": 1,
+          "tool_execution": 1,
+          "factuality": 1
+        },
+        "prompt": {
+          "raw": "¿Cuál es su horario de atención?",
+          "label": "{{query}}",
+          "config": {
+            "provider": {
+              "id": "openai:chat:nvidia/nemotron-3.5-lightning-30b-a3b",
+              "config": {
+                "apiBaseUrl": "https://integrate.api.nvidia.com/v1",
+                "apiKeyEnvar": "NVIDIA_API_KEY",
+                "temperature": 0,
+                "max_tokens": 300,
+                "showThinking": false,
+                "passthrough": {
+                  "chat_template_kwargs": {
+                    "enable_thinking": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "promptId": "8868fc514e5f7bd1a350480c5a825cd0f5b47b6c0c8da0ca62be71158f638c23",
+        "promptIdx": 0,
+        "provider": {
+          "id": "parachute-agent",
+          "label": ""
+        },
+        "response": {
+          "output": "Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 (hora de Guatemala).",
+          "metadata": {
+            "toolCalls": [
+              {
+                "name": "knowledge.searchFAQ",
+                "input": {
+                  "question": "¿Cuál es su horario de atención?"
+                },
+                "output": {
+                  "topic": "horario",
+                  "keywords": [
+                    "horario",
+                    "atienden",
+                    "atención",
+                    "abren"
+                  ],
+                  "answer": "Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 (hora de Guatemala)."
+                },
+                "is_error": false
+              }
+            ]
+          }
+        },
+        "score": 1,
+        "success": true,
+        "testCase": {
+          "description": "Comunica exactamente el horario de atención",
+          "vars": {
+            "query": "¿Cuál es su horario de atención?",
+            "expectedTool": "knowledge.searchFAQ",
+            "expectedToolArgs": {}
+          },
+          "assert": [
+            {
+              "type": "latency",
+              "threshold": 500,
+              "metric": "latency_ms"
+            },
+            {
+              "type": "factuality",
+              "value": "El horario de atención es de lunes a viernes, 08:00 a 17:00, hora de Guatemala.",
+              "metric": "factuality"
+            },
+            {
+              "type": "regex",
+              "value": "^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$",
+              "metric": "deterministic_format"
+            },
+            {
+              "type": "javascript",
+              "value": "file://evals/assertions/tool-execution.cjs",
+              "metric": "tool_execution"
+            }
+          ],
+          "options": {
+            "provider": {
+              "id": "openai:chat:nvidia/nemotron-3.5-lightning-30b-a3b",
+              "config": {
+                "apiBaseUrl": "https://integrate.api.nvidia.com/v1",
+                "apiKeyEnvar": "NVIDIA_API_KEY",
+                "temperature": 0,
+                "max_tokens": 300,
+                "showThinking": false,
+                "passthrough": {
+                  "chat_template_kwargs": {
+                    "enable_thinking": false
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {}
+        },
+        "testIdx": 1,
+        "vars": {
+          "query": "¿Cuál es su horario de atención?",
+          "expectedTool": "knowledge.searchFAQ",
+          "expectedToolArgs": {}
+        },
+        "metadata": {
+          "toolCalls": [
+            {
+              "name": "knowledge.searchFAQ",
+              "input": {
+                "question": "¿Cuál es su horario de atención?"
+              },
+              "output": {
+                "topic": "horario",
+                "keywords": [
+                  "horario",
+                  "atienden",
+                  "atención",
+                  "abren"
+                ],
+                "answer": "Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 (hora de Guatemala)."
+              },
+              "is_error": false
+            }
+          ],
+          "_promptfooFileMetadata": {}
+        },
+        "failureReason": 0
+      }
+    ],
+    "stats": {
+      "successes": 2,
+      "failures": 0,
+      "errors": 0,
+      "tokenUsage": {
+        "prompt": 0,
+        "completion": 0,
+        "cached": 0,
+        "total": 0,
+        "numRequests": 2,
+        "completionDetails": {
+          "reasoning": 0,
+          "acceptedPrediction": 0,
+          "rejectedPrediction": 0
+        },
+        "assertions": {
+          "total": 1038,
+          "prompt": 756,
+          "completion": 282,
+          "cached": 0,
+          "numRequests": 0,
+          "completionDetails": {
+            "reasoning": 0,
+            "acceptedPrediction": 0,
+            "rejectedPrediction": 0
+          }
+        }
+      },
+      "durationMs": 19202,
+      "evaluationDurationMs": 19202
+    }
+  },
+  "config": {
+    "tags": {},
+    "description": "Evals con grader factuality de Promptfoo para el agente Parachute",
+    "prompts": [
+      "{{query}}"
+    ],
+    "providers": [
+      "file://evals/provider.cjs"
+    ],
+    "tests": [
+      {
+        "description": "Agenda una cita con información factual y la herramienta correcta",
+        "vars": {
+          "query": "Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.",
+          "expectedTool": "calendar.createAppointment",
+          "expectedToolArgs": {
+            "date": "2026-10-05",
+            "time": "10:00"
+          }
+        },
+        "assert": [
+          {
+            "type": "factuality",
+            "value": "La cita se agendó para el 2026-10-05 a las 10:00 con motivo asesoría.",
+            "metric": "factuality"
+          },
+          {
+            "type": "regex",
+            "value": "^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$",
+            "metric": "deterministic_format"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/tool-execution.cjs",
+            "metric": "tool_execution"
+          }
+        ]
+      },
+      {
+        "description": "Comunica exactamente el horario de atención",
+        "vars": {
+          "query": "¿Cuál es su horario de atención?",
+          "expectedTool": "knowledge.searchFAQ",
+          "expectedToolArgs": {}
+        },
+        "assert": [
+          {
+            "type": "factuality",
+            "value": "El horario de atención es de lunes a viernes, 08:00 a 17:00, hora de Guatemala.",
+            "metric": "factuality"
+          },
+          {
+            "type": "regex",
+            "value": "^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$",
+            "metric": "deterministic_format"
+          },
+          {
+            "type": "javascript",
+            "value": "file://evals/assertions/tool-execution.cjs",
+            "metric": "tool_execution"
+          }
+        ]
+      }
+    ],
+    "scenarios": [],
+    "env": {},
+    "defaultTest": {
+      "options": {
+        "provider": {
+          "id": "openai:chat:nvidia/nemotron-3.5-lightning-30b-a3b",
+          "config": {
+            "apiBaseUrl": "https://integrate.api.nvidia.com/v1",
+            "apiKeyEnvar": "[REDACTED]",
+            "temperature": 0,
+            "max_tokens": 300,
+            "showThinking": false,
+            "passthrough": {
+              "chat_template_kwargs": {
+                "enable_thinking": false
+              }
+            }
+          }
+        }
+      },
+      "assert": [
+        {
+          "type": "latency",
+          "threshold": 500,
+          "metric": "latency_ms"
+        }
+      ],
+      "vars": {},
+      "metadata": {}
+    },
+    "outputPath": [
+      "reports/promptfoo-factuality.json"
+    ],
+    "extensions": [],
+    "metadata": {},
+    "evaluateOptions": {}
+  },
+  "shareableUrl": null,
+  "metadata": {
+    "promptfooVersion": "0.120.27",
+    "nodeVersion": "v24.15.0",
+    "platform": "win32",
+    "arch": "x64",
+    "exportedAt": "2026-09-29T06:33:05.931Z",
+    "evaluationCreatedAt": "2026-09-29T06:32:46.530Z"
+  }
+}
