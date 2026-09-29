@@ -1,0 +1,49 @@
+# Suite de entrega: usa el grader factuality nativo de Promptfoo.
+# Requiere OPENAI_API_KEY y se ejecuta con: npm run eval
+description: Evals con grader factuality de Promptfoo para el agente Parachute
+prompts:
+  - '{{query}}'
+providers:
+  - file://evals/provider.cjs
+defaultTest:
+  assert:
+    - type: latency
+      threshold: 500
+      metric: latency_ms
+tests:
+  - description: Agenda una cita con información factual y la herramienta correcta
+    vars:
+      query: Quiero agendar una cita el 2026-10-05 a las 10:00 para asesoría.
+      expectedTool: calendar.createAppointment
+      expectedToolArgs:
+        date: '2026-10-05'
+        time: '10:00'
+    assert:
+      - type: factuality
+        value: La cita se agendó para el 2026-10-05 a las 10:00 con motivo asesoría.
+        provider: openai:gpt-5-mini
+        metric: factuality
+      - type: regex
+        value: '^Cita agendada correctamente.*Confirmación: PC-\\d{4}\\.$'
+        metric: deterministic_format
+      - type: javascript
+        value: file://evals/assertions/tool-execution.cjs
+        metric: tool_execution
+
+  - description: Comunica exactamente el horario de atención
+    vars:
+      query: ¿Cuál es su horario de atención?
+      expectedTool: knowledge.searchFAQ
+      expectedToolArgs: {}
+    assert:
+      - type: factuality
+        value: El horario de atención es de lunes a viernes, 08:00 a 17:00, hora de Guatemala.
+        provider: openai:gpt-5-mini
+        metric: factuality
+      - type: regex
+        value: '^Nuestro horario de atención es de lunes a viernes, de 08:00 a 17:00 \\(hora de Guatemala\\)\\.$'
+        metric: deterministic_format
+      - type: javascript
+        value: file://evals/assertions/tool-execution.cjs
+        metric: tool_execution
+
